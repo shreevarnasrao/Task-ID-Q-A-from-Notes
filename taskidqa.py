@@ -1,22 +1,32 @@
-import nltk
-from nltk.corpus import stopwords
-from nltk.tokenize import word_tokenize
-from nltk.stem import PorterStemmer
+mport nltk
+import string
 import re
-filepath = input("Enter the path to your .txt file: ")
-try:
-    with open(filepath, 'r', encoding='utf-8') as f:
-        text = f.read()
-        except FileNotFoundError:
-paragraphs = [p.strip() for p in text.split('\n\n') if p.strip()]
+from nltk.corpus import stopwords
+from nltk.tokenize import word_tokenize, sent_tokenize
+filepath = input("Textfile here: ")
+Qa = input("enter your question: ")
+with open(filepath, 'r', encoding='utf-8') as file:
+    content = file.read()
+content_text = content.lower()
+stop_words = set(stopwords.words('english'))
+# Splits by one or more newlines, potentially with whitespace in between
+paragraphs = re.split(r'\n\s*\n', content)
+
+for i, paragraph in enumerate(paragraphs):
+    sentences = sent_tokenize(content)
+Qa_lower = Qa.lower()
 stop_words = set(stopwords.words('english'))
 
 
-def preprocess_text(text):
-    tokens = word_tokenize(text.lower())
-    cleaned_tokens = [
-        word for word in tokens
-        if word.isalnum() and word not in stop_words
-    ]
+def calculate_word_overlap(self, question_words, paragraph_words):
+    """Calculate the number of overlapping words between question and paragraph."""
+    overlap = question_words.intersection(paragraph_words)
+    return len(overlap)
 
-    return cleaned_tokens
+
+def search(self, question):
+
+    if not self.paragraphs:
+        return None, 0, "No paragraphs loaded."
+
+
